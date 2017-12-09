@@ -1,0 +1,81 @@
+#include <SimpleSDAudio.h>
+
+int ale = 1;
+int rele = 3;
+
+void setup() {
+
+pinMode(2,INPUT);
+pinMode(3,OUTPUT);
+Serial.begin(9600);
+
+
+
+SdPlay.setSDCSPin(4); // sd card cs pin
+
+if (!SdPlay.init(SSDA_MODE_FULLRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER))
+
+{ while(1); }
+
+}
+
+void loop(void)
+
+{
+
+  ale = random(3);
+  
+if(digitalRead(2)==1){
+   
+  Serial.println("Ativado!!!");
+  switch(ale){
+    case 1:
+        Serial.println("1");
+        digitalWrite(rele,HIGH);
+        delay(6000);
+       /*
+        //if(!SdPlay.setFile("1.wav")) // music name file
+        
+          { while(1);
+        
+          }  
+         */ 
+        (!SdPlay.setFile("1.wav"));
+        SdPlay.play(); // play music
+    break;  
+     /*case 2:
+        Serial.println("2");  
+        
+        if(!SdPlay.setFile("2.wav")) // music name file
+        
+          { while(1);
+        
+          }  
+        
+        SdPlay.play(); // play music
+     break;
+    
+    case 3:
+        Serial.println("3");    
+        if(!SdPlay.setFile("3.wav")) // music name file
+        
+          { while(1);
+        
+          }  
+        
+        SdPlay.play(); // play music
+    break;    
+    */   
+  }
+  digitalWrite(3,LOW);
+  while(!SdPlay.isStopped())
+  
+  { ;
+  
+  }  
+}
+
+
+//delay(6000);
+}
+
